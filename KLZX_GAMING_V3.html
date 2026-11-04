@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>KLZX GAMING V2</title>
+<style>
+:root{--red:#ff2638;--red2:#a90019;--bg:#070707;--panel:rgba(20,20,23,.88);--text:#f4f4f5;--muted:#a1a1aa;--line:rgba(255,38,56,.28)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#24070b 0%,#0a090a 42%,#050505 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;min-height:100vh;padding:22px 14px calc(30px + env(safe-area-inset-bottom))}
+.wrap{max-width:720px;margin:auto}
+header{text-align:center;padding:10px 0 22px}
+.logo{font-weight:950;letter-spacing:3px;font-size:clamp(27px,7vw,43px);text-shadow:0 0 20px #ff263866}
+.logo span{color:var(--red)}
+.sub{color:var(--muted);font-size:11px;letter-spacing:2px;margin-top:8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin:13px 0;box-shadow:0 12px 34px #0008;backdrop-filter:blur(12px)}
+h2{font-size:14px;letter-spacing:1.4px;margin:0 0 14px;color:#fff}
+p{color:var(--muted);font-size:13px;line-height:1.55}
+button,select{font:inherit}
+button{background:linear-gradient(135deg,var(--red),var(--red2));color:white;border:0;border-radius:12px;padding:13px 15px;font-weight:800;letter-spacing:.5px;cursor:pointer}
+button.secondary{background:#171719;border:1px solid #343438;color:#eee}
+button:active{transform:scale(.985)}
+.full{width:100%}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.profile{background:#121214;border:1px solid #353538;color:#bbb;padding:12px 5px;border-radius:11px;font-size:12px}
+.profile.active{border-color:var(--red);color:#fff;box-shadow:0 0 14px #ff263822;background:#260b10}
+.result{margin-top:13px;border-radius:12px;background:#0b0b0c;padding:14px;border:1px solid #29292b}
+.result strong{display:block;color:var(--red);font-size:14px;margin-bottom:7px}
+.result p{margin:0;color:#ddd}
+.item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #242426;font-size:13px;line-height:1.45}
+.item:last-child{border:0}
+.item input{accent-color:var(--red);width:18px;height:18px;flex:0 0 auto;margin-top:1px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+select{width:100%;padding:12px;background:#101012;color:#fff;border:1px solid #363638;border-radius:10px}
+.timer{font-size:32px;font-weight:900;text-align:center;letter-spacing:2px;margin:14px 0;color:var(--red)}
+.note{font-size:11px;color:#8b8b93;text-align:center;line-height:1.5;margin:18px 5px}
+footer{text-align:center;color:#696970;font-size:10px;letter-spacing:1px;padding:14px}
+@media(max-width:380px){.profiles{grid-template-columns:1fr}.profile{padding:11px}.actions{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">KLZX<span> GAMING</span></div>
+  <div class="sub">V2 • IPHONE 11 • FREE FIRE</div>
+</header>
+
+<section class="card">
+<h2>⚡ PERFIL DE JOGO</h2>
+<div class="profiles">
+<button class="profile active" data-mode="fps">PRIORIDADE FPS</button>
+<button class="profile" data-mode="aim">MIRA & CONTROLE</button>
+<button class="profile" data-mode="balanced">EQUILIBRADO</button>
+</div>
+<div class="result" id="profileResult">
+<strong>PRIORIDADE FPS</strong>
+<p>Gráficos Suave, FPS Alto, brilho moderado e evitar aquecimento.</p>
+</div>
+</section>
+
+<section class="card">
+<h2>☑ CHECKLIST ANTES DE JOGAR</h2>
+<div id="checklist">
+<label class="item"><input type="checkbox">Modo Pouca Energia desativado</label>
+<label class="item"><input type="checkbox">Modo Foco / Não Perturbe ativado</label>
+<label class="item"><input type="checkbox">Gravação de tela desligada</label>
+<label class="item"><input type="checkbox">Brilho ajustado (aprox. 50–70%)</label>
+<label class="item"><input type="checkbox">Free Fire: gráfico Suave e FPS Alto</label>
+<label class="item"><input type="checkbox">Feche apps pesados que não estiver usando</label>
+<label class="item"><input type="checkbox">Wi-Fi estável; fique perto do roteador</label>
+<label class="item"><input type="checkbox">Desconecte o carregador durante a partida, se possível</label>
+</div>
+<div class="actions" style="margin-top:13px">
+<button id="copy" class="secondary">COPIAR CHECKLIST</button>
+<button id="reset" class="secondary">DESMARCAR TUDO</button>
+</div>
+</section>
+
+<section class="card">
+<h2>🌡️ TEMPERATURA (AVALIAÇÃO MANUAL)</h2>
+<select id="heat">
+<option value="cool">Frio / normal</option>
+<option value="warm" selected>Morno / moderado</option>
+<option value="hot">Quente demais</option>
+</select>
+<div class="result" id="heatResult">
+<strong>SE ESTIVER MORNO</strong><p>Reduza o brilho, retire a capinha se necessário e faça pausas. O calor pode reduzir o desempenho.</p>
+</div>
+</section>
+
+<section class="card">
+<h2>⏱️ PAUSA DE 20 MINUTOS</h2>
+<p>Use o temporizador para lembrar de descansar o aparelho. O iOS pode suspender a página quando ela fica em segundo plano; mantenha-a aberta para melhor funcionamento.</p>
+<div class="timer" id="timer">20:00</div>
+<div class="actions">
+<button id="start">INICIAR</button>
+<button id="stop" class="secondary">REINICIAR</button>
+</div>
+</section>
+
+<section class="card">
+<h2>ℹ️ O QUE ESTE PAINEL FAZ</h2>
+<p>Organiza recomendações e checklist. Uma página HTML no iPhone não consegue ler o FPS real, acessar o sensor de temperatura, medir RAM, alterar a resolução do iOS ou modificar automaticamente o Free Fire. Os números de FPS não são medidos por este painel.</p>
+</section>
+<div class="note">AJUSTES SEGUROS • SEM JAILBREAK • SEM APPS DE “MILAGRE”</div>
+<footer>KLZX GAMING V2 — PERFORMANCE ASSIST</footer>
+</div>
+<script>
+const modes={
+fps:{title:"PRIORIDADE FPS",desc:"Gráficos Suave, FPS Alto, brilho moderado e evitar aquecimento."},
+aim:{title:"MIRA & CONTROLE",desc:"Mantenha FPS Alto e gráficos Suave; priorize tela limpa, toque sem interferências e conexão estável."},
+balanced:{title:"EQUILIBRADO",desc:"Gráficos Suave, FPS Alto se estável; ajuste brilho e faça pausas para controlar temperatura."}
+};
+document.querySelectorAll(".profile").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll(".profile").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");
+ const m=modes[btn.dataset.mode];
+ document.querySelector("#profileResult").innerHTML=`<strong>${m.title}</strong><p>${m.desc}</p>`;
+}));
+document.querySelector("#heat").addEventListener("change",e=>{
+ const data={
+ cool:["TEMPERATURA NORMAL","Continue monitorando. Evite jogar carregando se isso aquecer o aparelho."],
+ warm:["SE ESTIVER MORNO","Reduza o brilho, retire a capinha se necessário e faça pausas. O calor pode reduzir o desempenho."],
+ hot:["PARE E DEIXE ESFRIAR","Feche o jogo e deixe o iPhone esfriar naturalmente. Não coloque na geladeira nem sobre gelo."]
+ }[e.target.value];
+ document.querySelector("#heatResult").innerHTML=`<strong>${data[0]}</strong><p>${data[1]}</p>`;
+});
+document.querySelector("#copy").addEventListener("click",async()=>{
+ const lines=[...document.querySelectorAll("#checklist input")].map((x,i)=>(x.checked?"[x] ":"[ ] ")+x.parentElement.textContent.trim()).join("\n");
+ const b=document.querySelector("#copy");
+ try{await navigator.clipboard.writeText(lines);b.textContent="COPIADO!";}catch{b.textContent="COPIAR NÃO DISPONÍVEL";} 
+ setTimeout(()=>b.textContent="COPIAR CHECKLIST",1800);
+});
+document.querySelector("#reset").addEventListener("click",()=>document.querySelectorAll("#checklist input").forEach(x=>x.checked=false));
+let left=1200,interval=null;
+const display=()=>document.querySelector("#timer").textContent=String(Math.floor(left/60)).padStart(2,"0")+":"+String(left%60).padStart(2,"0");
+document.querySelector("#start").addEventListener("click",()=>{
+ if(interval)return;
+ document.querySelector("#start").textContent="EM ANDAMENTO";
+ interval=setInterval(()=>{
+  if(left>0){left--;display();}
+  else{clearInterval(interval);interval=null;document.querySelector("#start").textContent="INICIAR";alert("Pausa concluída! Deixe o iPhone descansar.");}
+ },1000);
+});
+document.querySelector("#stop").addEventListener("click",()=>{clearInterval(interval);interval=null;left=1200;display();document.querySelector("#start").textContent="INICIAR";});
+</script>
+</body>
+</html>
